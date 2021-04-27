@@ -5,9 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.util.Date;
-import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import java.sql.Date;
 
 @Entity
 @Getter
@@ -16,11 +18,11 @@ import java.util.Set;
 @AllArgsConstructor
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue
     private String productId;
     private String productName;
     private String productDescrip;
-    private Long price;
+    private Double price;
     private Date inStockDate;
     private String imageName;
 
