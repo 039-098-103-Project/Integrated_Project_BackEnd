@@ -1,5 +1,6 @@
 package int221.project.services;
 
+import int221.project.models.Color;
 import int221.project.models.Product;
 import int221.project.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,11 +8,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class ProductService {
     @Autowired
     ProductRepository productRepository;
+    @Autowired
+    ColorService colorService;
 
     //GET
     public List<Product> getAllProducts(){
@@ -38,9 +42,12 @@ public class ProductService {
     }
 
     //POST
-//    public void addProduct(Product newProduct) {
-//        productRepository.save(newProduct);
-//    }
+    public void addProduct(Product newProduct) {
+        for (Color color : newProduct.getColors()){
+            newProduct.getColors().add(color);
+        }
+        productRepository.save(newProduct);
+    }
 
     //DELETE
     public void deleteProduct(int id) {
