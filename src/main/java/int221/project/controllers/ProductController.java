@@ -5,6 +5,7 @@ import int221.project.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +34,7 @@ public class ProductController {
 //        productService.addProduct(newProduct);
 //    }
 
+    @Transactional
     @DeleteMapping("/product/delete/{id}")
     public void delete(@PathVariable int id){
         productService.deleteProduct(id);
