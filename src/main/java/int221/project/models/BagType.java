@@ -7,15 +7,17 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "bagtype")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class BagType {
     @Id
-    private String bagTypeId;
+    private int bagTypeId;
     private String bagTypeName;
 
 }

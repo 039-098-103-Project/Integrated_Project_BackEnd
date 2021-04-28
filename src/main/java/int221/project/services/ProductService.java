@@ -5,34 +5,46 @@ import int221.project.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
-public class ProductService extends UUIDGenerator {
+public class ProductService {
     @Autowired
     ProductRepository productRepository;
 
+    //GET
+    public List<Product> getAllProducts(){
+        return productRepository.findAll();
+    }
+
+    //GET
+    public Optional<Product> getProduct(int id){
+        return productRepository.findById(id);
+    }
+
     //PUT
-    public Product editProduct(Product newProduct, String id) {
+    public Optional<Product> editProduct(Product newProduct, int id) {
         return productRepository.findById(id).map(product -> {
             product.setProductName(newProduct.getProductName());
             product.setProductDescrip(newProduct.getProductDescrip());
             product.setPrice(newProduct.getPrice());
-            product.setBagType(newProduct.getBagType());
             product.setInStockDate(newProduct.getInStockDate());
             product.setImageName(newProduct.getImageName());
-            return productRepository.save(product);
-        }).orElse(null);
+            product.setBagType(newProduct.getBagType());
+            product.setColors(newProduct.getColors());
+            return productRepository.save(newProduct);
+        });
     }
 
     //POST
-    public Product addProduct(Product newProduct) {
-        int old_pid = (int) productRepository.count();
-        newProduct.setProductId(Generate("P", old_pid));
-        return productRepository.save(newProduct);
-    }
+//    public void addProduct(Product newProduct) {
+//        productRepository.save(newProduct);
+//    }
 
     //DELETE
-//    public void deleteProduct(String id) {
-//        productRepository.deleteById(id);
-//
-//    }
+    public void deleteProduct(int id) {
+        productRepository.deleteById(id);
+
+    }
 }
