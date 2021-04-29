@@ -8,14 +8,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class ProductService {
     @Autowired
     ProductRepository productRepository;
-    @Autowired
-    ColorService colorService;
 
     //GET
     public List<Product> getAllProducts(){

@@ -1,7 +1,6 @@
 package int221.project.controllers;
 
 import int221.project.models.Product;
-import int221.project.services.ColorService;
 import int221.project.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +13,6 @@ import java.util.Optional;
 public class ProductController {
     @Autowired
     ProductService productService;
-    @Autowired
-    ColorService colorService;
 
     @GetMapping("/product")
     public List<Product> showAll(){
@@ -34,7 +31,6 @@ public class ProductController {
 
     @PostMapping("/addProduct")
     public void add(@RequestBody Product newProduct){
-        colorService.setProduct(newProduct,newProduct.getColors());
         productService.addProduct(newProduct);
     }
 
