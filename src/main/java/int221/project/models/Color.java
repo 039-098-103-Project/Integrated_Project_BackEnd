@@ -12,16 +12,18 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "color")
+@Table(name = "Color")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(value = "products")
-@SQLInsert(sql = "INSERT IGNORE INTO color(colorId,colorName) VALUES(?,?)")
+@SQLInsert(sql = "INSERT IGNORE INTO Color(ColorID,ColorName) VALUES(?,?)")
 public class Color {
     @Id
+    @Column(name = "ColorID")
     private int colorId;
+    @Column(name = "ColorName")
     private String colorName;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST,CascadeType.MERGE}, mappedBy = "colors")
