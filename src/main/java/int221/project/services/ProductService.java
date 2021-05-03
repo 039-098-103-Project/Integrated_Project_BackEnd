@@ -26,16 +26,7 @@ public class ProductService {
 
     //PUT
     public Optional<Product> editProduct(Product newProduct, int id) {
-        return productRepository.findById(id).map(product -> {
-            product.setProductName(newProduct.getProductName());
-            product.setProductDescrip(newProduct.getProductDescrip());
-            product.setPrice(newProduct.getPrice());
-            product.setInStockDate(newProduct.getInStockDate());
-            product.setImageName(newProduct.getImageName());
-            product.setBagType(newProduct.getBagType());
-            product.setColors(newProduct.getColors());
-            return productRepository.save(newProduct);
-        });
+        return productRepository.findById(id).map(product -> productRepository.save(newProduct));
     }
 
     //POST
@@ -51,5 +42,9 @@ public class ProductService {
         productRepository.deleteProductDetailById(id);
         productRepository.deleteProductById(id);
 
+    }
+
+    public List<Product> searchProduct(String productName){
+        return productRepository.searchProductByName(productName);
     }
 }
