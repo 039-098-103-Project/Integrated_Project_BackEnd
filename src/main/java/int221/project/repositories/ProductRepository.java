@@ -10,17 +10,17 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Modifying
-    @Query(value = "delete from productdetail where productID = :productid", nativeQuery = true)
+    @Query(value = "delete from ProductDetail where productID = :productid", nativeQuery = true)
     void deleteProductDetailById(@Param("productid") int productid);
     @Modifying
-    @Query(value = "delete from product where productID = :productid", nativeQuery = true)
+    @Query(value = "delete from Product where productID = :productid", nativeQuery = true)
     void deleteProductById(@Param("productid") int productid);
 
     @Modifying
-    @Query(value = "select * from product where productname = :productname", nativeQuery = true)
+    @Query(value = "select * from Product where productname = :productname", nativeQuery = true)
     List<Product> searchProductByName(@Param("productname") String productname);
 
     @Modifying
-    @Query(value = "select * from product where imagename = :imagename", nativeQuery = true)
+    @Query(value = "select * from Product where imagename = :imagename", nativeQuery = true)
     List<Product> searchProductByImageName(@Param("imagename") String imagename);
 }

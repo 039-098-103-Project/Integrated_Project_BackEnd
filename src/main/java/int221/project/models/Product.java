@@ -37,11 +37,11 @@ public class Product implements Serializable{
     @JoinColumn(name = "BagTypeID")
     BagType bagType;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany
     @JoinTable(
             name = "ProductDetail",
-            joinColumns = @JoinColumn(name = "ProductID"),
-            inverseJoinColumns = @JoinColumn(name = "ColorID")
+            joinColumns = @JoinColumn(name = "ProductID",insertable = false),
+            inverseJoinColumns = @JoinColumn(name = "ColorID",insertable = false)
     )
     Set<Color> colors = new HashSet<>();
 

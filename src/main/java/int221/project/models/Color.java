@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.SQLInsert;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -18,7 +17,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(value = "products")
-@SQLInsert(sql = "INSERT IGNORE INTO Color(ColorID,ColorName) VALUES(?,?)")
 public class Color {
     @Id
     @Column(name = "ColorID")
