@@ -43,6 +43,7 @@ public class ProductController {
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
+    @Transactional
     @PutMapping("/product/edit/{id}")
     public Optional<Product> edit(@RequestParam("file") MultipartFile file, @RequestPart Product newProduct, @PathVariable int id) {
         if (file.equals(null) || newProduct.equals(null)) {
@@ -50,6 +51,12 @@ public class ProductController {
         }
         if (productService.getProduct(id).isEmpty()) {
             throw new ProductException(ExceptionResponse.ERROR_CODE.ITEM_DOES_NOT_EXIST, "Product id {" + id + "} Not Found.");
+        }
+        if (productService.searchDuplicateName(newProduct.getProductName(), newProduct.getProductId())){
+            throw new ProductException(ExceptionResponse.ERROR_CODE.ITEM_ALREADY_EXIST, "This Product Name already exist.");
+        }
+        if (productService.searchDuplicateImage(newProduct.getImageName(), newProduct.getProductId())){
+            throw new ProductException(ExceptionResponse.ERROR_CODE.ITEM_ALREADY_EXIST, "Duplicate Image Name.");
         }
         fileStorageService.delete(productService.getProduct(id).get().getImageName());
         fileStorageService.store(file);
@@ -65,7 +72,7 @@ public class ProductController {
         if (!productService.searchProduct(newProduct.getProductName()).isEmpty()) {
             throw new ProductException(ExceptionResponse.ERROR_CODE.ITEM_ALREADY_EXIST, "This Product Name already exist.");
         }
-        if(!productService.searchImage(newProduct.getImageName()).isEmpty()){
+        if (!productService.searchImage(newProduct.getImageName()).isEmpty()) {
             throw new ProductException(ExceptionResponse.ERROR_CODE.ITEM_ALREADY_EXIST, "Duplicate Image Name.");
         }
         fileStorageService.store(file);

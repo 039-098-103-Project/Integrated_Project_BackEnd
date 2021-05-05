@@ -15,12 +15,12 @@ public class ProductService {
     ProductRepository productRepository;
 
     //GET
-    public List<Product> getAllProducts(){
+    public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
 
     //GET
-    public Optional<Product> getProduct(int id){
+    public Optional<Product> getProduct(int id) {
         return productRepository.findById(id);
     }
 
@@ -31,7 +31,7 @@ public class ProductService {
 
     //POST
     public void addProduct(Product newProduct) {
-        for (Color color : newProduct.getColors()){
+        for (Color color : newProduct.getColors()) {
             newProduct.getColors().add(color);
         }
         productRepository.save(newProduct);
@@ -44,11 +44,31 @@ public class ProductService {
 
     }
 
-    public List<Product> searchProduct(String productName){
+    public List<Product> searchProduct(String productName) {
         return productRepository.searchProductByName(productName);
     }
 
-    public List<Product> searchImage(String imageName){
+    public List<Product> searchImage(String imageName) {
         return productRepository.searchProductByImageName(imageName);
+    }
+
+    public Boolean searchDuplicateName(String productName, int id) {
+        List<Product> products = productRepository.findAll();
+        for (Product p : products) {
+            if (p.getProductName().equals(productName) && p.getProductId() != id) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Boolean searchDuplicateImage(String imageName, int id){
+        List<Product> products = productRepository.findAll();
+        for (Product p : products) {
+            if (p.getImageName().equals(imageName) && p.getProductId() != id) {
+                return true;
+            }
+        }
+        return false;
     }
 }
