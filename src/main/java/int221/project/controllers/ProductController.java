@@ -65,6 +65,9 @@ public class ProductController {
         if (!productService.searchProduct(newProduct.getProductName()).isEmpty()) {
             throw new ProductException(ExceptionResponse.ERROR_CODE.ITEM_ALREADY_EXIST, "This Product Name already exist.");
         }
+        if(!productService.searchImage(newProduct.getImageName()).isEmpty()){
+            throw new ProductException(ExceptionResponse.ERROR_CODE.ITEM_ALREADY_EXIST, "Duplicate Image Name.");
+        }
         fileStorageService.store(file);
         productService.addProduct(newProduct);
 

@@ -19,4 +19,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Modifying
     @Query(value = "select * from product where productname = :productname", nativeQuery = true)
     List<Product> searchProductByName(@Param("productname") String productname);
+
+    @Modifying
+    @Query(value = "select * from product where imagename = :imagename", nativeQuery = true)
+    List<Product> searchProductByImageName(@Param("imagename") String imagename);
 }

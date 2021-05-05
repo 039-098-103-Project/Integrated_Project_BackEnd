@@ -47,4 +47,8 @@ public class ProductService {
     public List<Product> searchProduct(String productName){
         return productRepository.searchProductByName(productName);
     }
+
+    public List<Product> searchImage(String imageName){
+        return productRepository.searchProductByImageName(imageName);
+    }
 }
