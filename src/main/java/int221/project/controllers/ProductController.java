@@ -18,18 +18,19 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin
 public class ProductController {
     @Autowired
     ProductService productService;
     @Autowired
     FileStorageService fileStorageService;
 
-    @GetMapping("/product")
+    @GetMapping("/products")
     public List<Product> showAll() {
         return productService.getAllProducts();
     }
 
-    @GetMapping("/product/{id}")
+    @GetMapping("/products/{id}")
     public Optional<Product> show(@PathVariable int id) {
         if (productService.getProduct(id).isEmpty()) {
             throw new ProductException(ExceptionResponse.ERROR_CODE.ITEM_DOES_NOT_EXIST, "Product {" + id + "} Not Found.");
@@ -44,7 +45,7 @@ public class ProductController {
     }
 
     @Transactional
-    @PutMapping("/product/edit/{id}")
+    @PutMapping("/products/edit/{id}")
     public Optional<Product> edit(@RequestParam("file") MultipartFile file, @RequestPart Product newProduct, @PathVariable int id) {
         if (file.equals(null) || newProduct.equals(null)) {
             throw new ProductException(ExceptionResponse.ERROR_CODE.FILE_EMPTY, "File or Product is Empty");
@@ -81,7 +82,7 @@ public class ProductController {
     }
 
     @Transactional
-    @DeleteMapping("/product/delete/{id}")
+    @DeleteMapping("/products/delete/{id}")
     public void delete(@PathVariable int id) {
         if (productService.getProduct(id).isEmpty()) {
             throw new ProductException(ExceptionResponse.ERROR_CODE.ITEM_DOES_NOT_EXIST, "Product id{" + id + "} Not Found.");

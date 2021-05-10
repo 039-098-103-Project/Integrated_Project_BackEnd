@@ -1,9 +1,6 @@
 package int221.project.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,7 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class Product implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ProductID")
     private int productId;
     @Column(name = "ProductName")
